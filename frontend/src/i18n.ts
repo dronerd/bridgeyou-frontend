@@ -12,6 +12,11 @@ export const translations: Record<LangCode, Record<string, string>> = {
     footer: "Built to help people communicate comfortably across cultures",
     languageLabel: "UI Language",
     countryLabel: "Target country",
+    uiLanguageLabel: "UI Language",
+    targetLanguageLabel: "Target language",
+    step1: "Step 1: Choose your UI language (your native tongue)",
+    step2: "Step 2: Choose the language you want to speak in",
+    step3: "Step 3: Choose the target country to specialize in",
   },
   ja: {
     title: "BridgeYou チャット",
@@ -24,6 +29,11 @@ export const translations: Record<LangCode, Record<string, string>> = {
     footer: "外国の方と日本の方が安心して交流できるように作られています",
     languageLabel: "表示言語",
     countryLabel: "対象の国",
+    uiLanguageLabel: "表示言語（母語）",
+    targetLanguageLabel: "話したい言語",
+    step1: "ステップ1：表示言語（あなたの母語）を選択",
+    step2: "ステップ2：話したい言語を選択",
+    step3: "ステップ3：対象となる国を選択",
   },
   zh: {
     title: "BridgeYou 聊天",
@@ -36,6 +46,11 @@ export const translations: Record<LangCode, Record<string, string>> = {
     footer: "帮助不同文化背景的人更舒适地交流",
     languageLabel: "界面语言",
     countryLabel: "目标国家",
+    uiLanguageLabel: "界面语言（母语）",
+    targetLanguageLabel: "目标语言",
+    step1: "步骤1：选择界面语言（您的母语）",
+    step2: "步骤2：选择您想使用的语言",
+    step3: "步骤3：选择目标国家以进行适配",
   },
   de: {
     title: "BridgeYou Chat",
@@ -48,6 +63,11 @@ export const translations: Record<LangCode, Record<string, string>> = {
     footer: "Entwickelt, damit Menschen kulturell sicher miteinander kommunizieren können",
     languageLabel: "Anzeigesprache",
     countryLabel: "Zielland",
+    uiLanguageLabel: "Anzeigesprache (Muttersprache)",
+    targetLanguageLabel: "Zielsprache",
+    step1: "Schritt 1: Wählen Sie Ihre Anzeigesprache (Muttersprache)",
+    step2: "Schritt 2: Wählen Sie die Sprache, in der Sie sprechen möchten",
+    step3: "Schritt 3: Wählen Sie das Zielland zur Spezialisierung",
   },
   fr: {
     title: "BridgeYou Chat",
@@ -60,6 +80,11 @@ export const translations: Record<LangCode, Record<string, string>> = {
     footer: "Conçu pour aider les personnes à communiquer confortablement entre cultures",
     languageLabel: "Langue de l'interface",
     countryLabel: "Pays cible",
+    uiLanguageLabel: "Langue de l'interface (langue maternelle)",
+    targetLanguageLabel: "Langue cible",
+    step1: "Étape 1 : Choisissez la langue de l'interface (votre langue maternelle)",
+    step2: "Étape 2 : Choisissez la langue dans laquelle vous voulez parler",
+    step3: "Étape 3 : Choisissez le pays cible pour la spécialisation",
   },
   es: {
     title: "BridgeYou Chat",
@@ -72,6 +97,11 @@ export const translations: Record<LangCode, Record<string, string>> = {
     footer: "Creado para ayudar a las personas a comunicarse cómodamente entre culturas",
     languageLabel: "Idioma de la interfaz",
     countryLabel: "País objetivo",
+    uiLanguageLabel: "Idioma de la interfaz (lengua materna)",
+    targetLanguageLabel: "Idioma objetivo",
+    step1: "Paso 1: Elige el idioma de la interfaz (tu lengua materna)",
+    step2: "Paso 2: Elige el idioma en el que quieres hablar",
+    step3: "Paso 3: Elige el país objetivo para especializarte",
   },
 };
 
@@ -92,3 +122,65 @@ export const languageOptions: { code: LangCode; label: string }[] = [
   { code: "fr", label: "Français" },
   { code: "es", label: "Español" },
 ];
+
+// Localized language names: languageNames[uiLang][langCode]
+export const languageNames: Record<LangCode, Record<LangCode, string>> = {
+  en: { en: "English", ja: "Japanese", zh: "Chinese", de: "German", fr: "French", es: "Spanish" },
+  ja: { en: "英語", ja: "日本語", zh: "中国語", de: "ドイツ語", fr: "フランス語", es: "スペイン語" },
+  zh: { en: "英语", ja: "日语", zh: "中文", de: "德语", fr: "法语", es: "西班牙语" },
+  de: { en: "Englisch", ja: "Japanisch", zh: "Chinesisch", de: "Deutsch", fr: "Französisch", es: "Spanisch" },
+  fr: { en: "Anglais", ja: "Japonais", zh: "Chinois", de: "Allemand", fr: "Français", es: "Espagnol" },
+  es: { en: "Inglés", ja: "Japonés", zh: "Chino", de: "Alemán", fr: "Francés", es: "Español" },
+};
+
+// Localized country lists: localizedCountries[uiLang][targetLang] -> array in same order as countriesByLang[targetLang]
+export const localizedCountries: Record<LangCode, Record<LangCode, string[]>> = {
+  en: {
+    en: ["United States", "United Kingdom", "Canada", "Australia"],
+    ja: ["Japan"],
+    zh: ["China", "Taiwan", "Singapore"],
+    de: ["Germany", "Austria", "Switzerland"],
+    fr: ["France", "Canada", "Belgium", "Switzerland"],
+    es: ["Spain", "Mexico", "Colombia", "Argentina"],
+  },
+  ja: {
+    en: ["アメリカ合衆国", "イギリス", "カナダ", "オーストラリア"],
+    ja: ["日本"],
+    zh: ["中国", "台湾", "シンガポール"],
+    de: ["ドイツ", "オーストリア", "スイス"],
+    fr: ["フランス", "カナダ", "ベルギー", "スイス"],
+    es: ["スペイン", "メキシコ", "コロンビア", "アルゼンチン"],
+  },
+  zh: {
+    en: ["美国", "英国", "加拿大", "澳大利亚"],
+    ja: ["日本"],
+    zh: ["中国", "台湾", "新加坡"],
+    de: ["德国", "奥地利", "瑞士"],
+    fr: ["法国", "加拿大", "比利时", "瑞士"],
+    es: ["西班牙", "墨西哥", "哥伦比亚", "阿根廷"],
+  },
+  de: {
+    en: ["Vereinigte Staaten", "Vereinigtes Königreich", "Kanada", "Australien"],
+    ja: ["Japan"],
+    zh: ["China", "Taiwan", "Singapur"],
+    de: ["Deutschland", "Österreich", "Schweiz"],
+    fr: ["Frankreich", "Kanada", "Belgien", "Schweiz"],
+    es: ["Spanien", "Mexiko", "Kolumbien", "Argentinien"],
+  },
+  fr: {
+    en: ["États-Unis", "Royaume-Uni", "Canada", "Australie"],
+    ja: ["Japon"],
+    zh: ["Chine", "Taïwan", "Singapour"],
+    de: ["Allemagne", "Autriche", "Suisse"],
+    fr: ["France", "Canada", "Belgique", "Suisse"],
+    es: ["Espagne", "Mexique", "Colombie", "Argentine"],
+  },
+  es: {
+    en: ["Estados Unidos", "Reino Unido", "Canadá", "Australia"],
+    ja: ["Japón"],
+    zh: ["China", "Taiwán", "Singapur"],
+    de: ["Alemania", "Austria", "Suiza"],
+    fr: ["Francia", "Canadá", "Bélgica", "Suiza"],
+    es: ["España", "México", "Colombia", "Argentina"],
+  },
+};

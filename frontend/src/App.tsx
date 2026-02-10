@@ -5,6 +5,8 @@ import {
   translations,
   languageOptions,
   countriesByLang,
+  languageNames,
+  localizedCountries,
 } from "./i18n";
 
 
@@ -14,6 +16,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [lang, setLang] = useState<"en" | "ja" | "zh" | "de" | "fr" | "es">("en");
   const [country, setCountry] = useState<string>(countriesByLang.en[0]);
+  const [targetLang, setTargetLang] = useState<"en" | "ja" | "zh" | "de" | "fr" | "es">("en");
   
   const flagByLang: Record<string, string> = {
     en: "🇺🇸",
@@ -54,7 +57,7 @@ function App() {
       const res = await rewriteMessage(
         message,
         "Foreigner",
-        `${lang}${country ? ` - ${country}` : ""}`
+        `${targetLang}${country ? ` - ${country}` : ""}`
       );
       setRewritten(res.rewritten);
     } finally {
@@ -63,9 +66,9 @@ function App() {
   };
 
   useEffect(() => {
-    const defaultCountry = countriesByLang[lang] && countriesByLang[lang][0];
+    const defaultCountry = countriesByLang[targetLang] && countriesByLang[targetLang][0];
     if (defaultCountry) setCountry(defaultCountry);
-  }, [lang]);
+  }, [targetLang]);
 
   return (
     <div className="app-root">
@@ -77,27 +80,43 @@ function App() {
           </div>
         </header>
 
+        <div className="steps">
+          <ol>
+            <li>{translations[lang].step1}</li>
+            <li>{translations[lang].step2}</li>
+            <li>{translations[lang].step3}</li>
+          </ol>
+        </div>
+
         <div className="lang-row">
-          <div className="lang-toggle">
-            {languageOptions.map((opt) => (
-              <button
-                key={opt.code}
-                className={"lang-option " + (lang === opt.code ? "active" : "")}
-                onClick={() => setLang(opt.code as any)}
-                title={opt.label}
-              >
-                <span className="flag">{flagByLang[opt.code] || "🏳️"}</span>
-                <span className="label">{opt.label}</span>
-              </button>
-            ))}
+          <div className="lang-column">
+            <label style={{ display: "block", marginBottom: 6 }}>{translations[lang].uiLanguageLabel}</label>
+            <select value={lang} onChange={(e) => setLang(e.target.value as any)}>
+              {languageOptions.map((opt) => (
+                <option key={opt.code} value={opt.code}>
+                  {flagByLang[opt.code]} {languageNames[lang][opt.code]}
+                </option>
+              ))}
+            </select>
           </div>
 
-          <div className="country-select">
+          <div className="lang-column">
+            <label style={{ display: "block", marginBottom: 6 }}>{translations[lang].targetLanguageLabel}</label>
+            <select value={targetLang} onChange={(e) => setTargetLang(e.target.value as any)}>
+              {languageOptions.map((opt) => (
+                <option key={opt.code} value={opt.code}>
+                  {flagByLang[opt.code]} {languageNames[lang][opt.code]}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="lang-column country-select">
             <label style={{ display: "block", marginBottom: 6 }}>{translations[lang].countryLabel}</label>
             <select value={country} onChange={(e) => setCountry(e.target.value)}>
-              {(countriesByLang[lang] || []).map((c) => (
+              {(countriesByLang[targetLang] || []).map((c, idx) => (
                 <option key={c} value={c}>
-                  {countryFlag[c] ? `${countryFlag[c]} ${c}` : c}
+                  {countryFlag[c] ? `${countryFlag[c]} ` : ""}{(localizedCountries[lang] && localizedCountries[lang][targetLang]) ? localizedCountries[lang][targetLang][idx] : c}
                 </option>
               ))}
             </select>
@@ -137,7 +156,7 @@ function App() {
       </div>
 
       <footer className="app-footer">
-        Built to help foreigners and Japanese users communicate comfortably
+        {translations[lang].footer}
       </footer>
     </div>
   );
