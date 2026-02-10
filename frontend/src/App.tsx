@@ -14,6 +14,35 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [lang, setLang] = useState<"en" | "ja" | "zh" | "de" | "fr" | "es">("en");
   const [country, setCountry] = useState<string>(countriesByLang.en[0]);
+  
+  const flagByLang: Record<string, string> = {
+    en: "🇺🇸",
+    ja: "🇯🇵",
+    zh: "🇨🇳",
+    de: "🇩🇪",
+    fr: "🇫🇷",
+    es: "🇪🇸",
+  };
+
+  const countryFlag: Record<string, string> = {
+    "United States": "🇺🇸",
+    "United Kingdom": "🇬🇧",
+    Canada: "🇨🇦",
+    Australia: "🇦🇺",
+    Japan: "🇯🇵",
+    China: "🇨🇳",
+    Taiwan: "🇹🇼",
+    Singapore: "🇸🇬",
+    Germany: "🇩🇪",
+    Austria: "🇦🇹",
+    Switzerland: "🇨🇭",
+    France: "🇫🇷",
+    Belgium: "🇧🇪",
+    Spain: "🇪🇸",
+    Mexico: "🇲🇽",
+    Colombia: "🇨🇴",
+    Argentina: "🇦🇷",
+  };
 
   
   const handleRewrite = async () => {
@@ -42,34 +71,40 @@ function App() {
     <div className="app-root">
       <div className="app-card">
         <header className="app-header">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div>
-              <h1>{translations[lang].title}</h1>
-              <p>{translations[lang].subtitle}</p>
-            </div>
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <label style={{ fontSize: 12 }}>{translations[lang].languageLabel}:</label>
-              <select value={lang} onChange={(e) => setLang(e.target.value as any)}>
-                {languageOptions.map((opt) => (
-                  <option key={opt.code} value={opt.code}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div>
+            <h1>{translations[lang].title}</h1>
+            <p>{translations[lang].subtitle}</p>
           </div>
         </header>
 
-        <section style={{ marginTop: 12, marginBottom: 8 }}>
-          <label style={{ display: "block", marginBottom: 6 }}>{translations[lang].countryLabel}</label>
-          <select value={country} onChange={(e) => setCountry(e.target.value)}>
-            {(countriesByLang[lang] || []).map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
+        <div className="lang-row">
+          <div className="lang-toggle">
+            {languageOptions.map((opt) => (
+              <button
+                key={opt.code}
+                className={"lang-option " + (lang === opt.code ? "active" : "")}
+                onClick={() => setLang(opt.code as any)}
+                title={opt.label}
+              >
+                <span className="flag">{flagByLang[opt.code] || "🏳️"}</span>
+                <span className="label">{opt.label}</span>
+              </button>
             ))}
-          </select>
-        </section>
+          </div>
+
+          <div className="country-select">
+            <label style={{ display: "block", marginBottom: 6 }}>{translations[lang].countryLabel}</label>
+            <select value={country} onChange={(e) => setCountry(e.target.value)}>
+              {(countriesByLang[lang] || []).map((c) => (
+                <option key={c} value={c}>
+                  {countryFlag[c] ? `${countryFlag[c]} ${c}` : c}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        
 
         <section className="input-section">
           <label>{translations[lang].yourMessage}</label>
